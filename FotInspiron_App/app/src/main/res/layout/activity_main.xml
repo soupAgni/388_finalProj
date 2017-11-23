@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.anastasia.fotinspiron_app.FacebookLoginActivity">
+
+
+    <com.facebook.login.widget.LoginButton
+        android:id="@+id/login_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="30dp" />
+    <Button
+        android:id="@+id/btn_login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Button"
+        android:layout_marginBottom="31dp"
+        android:onClick="onsignUp_or_login"
+        android:layout_above="@+id/tv_signup"
+        android:layout_centerHorizontal="true" />
+
+    <EditText
+        android:id="@+id/et_email"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textEmailAddress"
+        android:layout_above="@+id/et_password"
+        android:layout_centerHorizontal="true" />
+
+    <EditText
+        android:id="@+id/et_password"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPassword"
+        android:layout_above="@+id/et_passVerify"
+        android:layout_toRightOf="@+id/textViewLoginStatus"
+        android:layout_toEndOf="@+id/textViewLoginStatus" />
+
+    <TextView
+        android:id="@+id/textViewLoginStatus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/et_email"
+        android:layout_marginEnd="17dp"
+        android:layout_marginRight="17dp"
+        android:layout_toLeftOf="@+id/et_email"
+        android:text="Email:"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Password:"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+        android:layout_alignBaseline="@+id/et_password"
+        android:layout_alignBottom="@+id/et_password"
+        android:layout_toLeftOf="@+id/et_password"
+        android:layout_toStartOf="@+id/et_password" />
+
+    <TextView
+        android:id="@+id/tv_verifyPass"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="verify password:"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+        android:layout_alignTop="@+id/et_passVerify"
+        android:layout_alignRight="@+id/textViewLoginStatus"
+        android:layout_alignEnd="@+id/textViewLoginStatus" />
+
+    <TextView
+        android:id="@+id/tv_signup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="52dp"
+        android:clickable="true"
+        android:onClick="onClickTextView"
+        android:text="TextView"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        android:textColor="?android:attr/textColorLinkInverse" />
+
+    <EditText
+        android:id="@+id/et_passVerify"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPassword"
+        android:layout_marginBottom="26dp"
+        android:layout_above="@+id/btn_login"
+        android:layout_alignLeft="@+id/et_password"
+        android:layout_alignStart="@+id/et_password" />
+
+    <TextView
+        android:id="@+id/textViewLoginStatus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/et_email"
+        android:layout_alignStart="@+id/et_email"
+        android:layout_below="@+id/login_button"
+        android:text="TextView" />
+
+</RelativeLayout>
