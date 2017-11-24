@@ -36,6 +36,7 @@ import org.json.JSONObject;
 import org.w3c.dom.Text;
 
 import java.net.MalformedURLException;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
@@ -83,6 +84,7 @@ CallbackManager callbackManager;
 
         //For the facebook login
         callbackManager = CallbackManager.Factory.create();
+        loginButton.setReadPermissions(Arrays.asList("email"));
         loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>(){
             @Override
             public void onSuccess(LoginResult loginResult) {
@@ -92,29 +94,39 @@ CallbackManager callbackManager;
                     public void onCompleted(JSONObject object, GraphResponse response) {
                         Log.i("FacebookLoginActivity", response.toString());
                         // Get facebook data from login
+
                         Bundle bFacebookData = getFacebookData(object);
+
+                        String id = bFacebookData.getString("idFacebook","");
+                        String email = bFacebookData.getString("email","");
+
+                       ParseUser.logInInBackground(email, id, new LogInCallback() {
+                           @Override
+                           public void done(ParseUser user, ParseException e) {
+                               if(user != null){
+                                   Log.i("AppInfo", "Login successful");
+                                   Toast.makeText(getApplicationContext(), "Login Successful!", Toast.LENGTH_LONG).show();
+
+                               }
+
+                               else {
+                                   Toast.makeText(getApplicationContext(),e.getMessage().substring(e.getMessage().indexOf(" ")), Toast.LENGTH_LONG ).show();
+
+                               }
+
+                           }
+                       });
+
                     }
 
                 });
                 Bundle parameters = new Bundle();
-                parameters.putString("fields", "email, password");
+                parameters.putString("fields", "email");
                 request.setParameters(parameters);
                 request.executeAsync();
 
-                //sending info to parse
-                ParseUser.logInInBackground((parameters.get("email").toString()), (parameters.get("idFacebook").toString()), new LogInCallback() {
-                    @Override
-                    public void done(ParseUser user, ParseException e) {
-                        if(user != null){
-                            Log.i("AppInfo", "Login successful");
-                            Toast.makeText(getApplicationContext(), "Login Successful!", Toast.LENGTH_LONG).show();
-                        }
-                        else {
-                            Toast.makeText(getApplicationContext(),e.getMessage().substring(e.getMessage().indexOf(" ")), Toast.LENGTH_LONG ).show();
 
-                        }
-                    }
-                });
+
 
             }
 
@@ -220,15 +232,19 @@ CallbackManager callbackManager;
         try{
 
             String id = object.getString("id");
+            System.out.println(id);
             bundle.putString("idFacebook", id);
             if(object.has("email")){
-                bundle.putString("email", object.getString("email"));
+
+            String email = object.getString("email");
+                bundle.putString("email",email);
+                System.out.println(email);
             }
         }
         catch (JSONException e){
             Log.d("FacebookLogin","Error parsing JSON");
         }
-        return null;
+        return bundle;
     }
 
 }
