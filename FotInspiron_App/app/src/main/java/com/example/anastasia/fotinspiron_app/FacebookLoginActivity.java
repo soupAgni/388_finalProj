@@ -7,9 +7,12 @@ import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
+import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
+import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.parse.ParseAnalytics;
@@ -28,8 +31,11 @@ import com.parse.ParseUser;
 import com.parse.SaveCallback;
 import com.parse.SignUpCallback;
 
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.w3c.dom.Text;
 
+import java.net.MalformedURLException;
 import java.util.List;
 import java.util.Objects;
 
@@ -74,23 +80,53 @@ CallbackManager callbackManager;
       content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
       text = content.toString();*/
         tv_signup_or_login.setText("Sign Up");
+
+        //For the facebook login
         callbackManager = CallbackManager.Factory.create();
         loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>(){
             @Override
             public void onSuccess(LoginResult loginResult) {
                 textView.setText("Login successful "+loginResult.getAccessToken().getUserId());
+                GraphRequest request = GraphRequest.newMeRequest(loginResult.getAccessToken(), new GraphRequest.GraphJSONObjectCallback() {
+                    @Override
+                    public void onCompleted(JSONObject object, GraphResponse response) {
+                        Log.i("FacebookLoginActivity", response.toString());
+                        // Get facebook data from login
+                        Bundle bFacebookData = getFacebookData(object);
+                    }
+
+                });
+                Bundle parameters = new Bundle();
+                parameters.putString("fields", "email, password");
+                request.setParameters(parameters);
+                request.executeAsync();
+
+                //sending info to parse
+                ParseUser.logInInBackground((parameters.get("email").toString()), (parameters.get("idFacebook").toString()), new LogInCallback() {
+                    @Override
+                    public void done(ParseUser user, ParseException e) {
+                        if(user != null){
+                            Log.i("AppInfo", "Login successful");
+                            Toast.makeText(getApplicationContext(), "Login Successful!", Toast.LENGTH_LONG).show();
+                        }
+                        else {
+                            Toast.makeText(getApplicationContext(),e.getMessage().substring(e.getMessage().indexOf(" ")), Toast.LENGTH_LONG ).show();
+
+                        }
+                    }
+                });
 
             }
 
             @Override
             public void onCancel() {
                 textView.setText("Login cancelled");
-
             }
 
             @Override
             public void onError(FacebookException error) {
-
+                System.out.println("onError");
+                Log.v("LoginActivity", error.getCause().toString());
             }
         });
 
@@ -178,7 +214,26 @@ CallbackManager callbackManager;
         super.onActivityResult(requestCode, resultCode, data);
         callbackManager.onActivityResult(requestCode, resultCode, data);
     }
-    /* All the parse tests: Put in onCreate and see what each one does. This is a means to communicate with the parse dashboard.
+
+    private Bundle getFacebookData(JSONObject object){
+        Bundle bundle = new Bundle();
+        try{
+
+            String id = object.getString("id");
+            bundle.putString("idFacebook", id);
+            if(object.has("email")){
+                bundle.putString("email", object.getString("email"));
+            }
+        }
+        catch (JSONException e){
+            Log.d("FacebookLogin","Error parsing JSON");
+        }
+        return null;
+    }
+
+}
+
+/* All the parse tests: Put in onCreate and see what each one does. This is a means to communicate with the parse dashboard.
 
     //checks to see if the Score class exists and puts score in that class or it will create a new Score
       /*ParseObject gameScore = new ParseObject("GameScore");
@@ -241,4 +296,3 @@ CallbackManager callbackManager;
               }
           }
       });*/
-}
