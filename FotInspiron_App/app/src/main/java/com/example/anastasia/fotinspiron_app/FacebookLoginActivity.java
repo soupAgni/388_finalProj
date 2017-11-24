@@ -97,8 +97,10 @@ CallbackManager callbackManager;
 
                         Bundle bFacebookData = getFacebookData(object);
 
-                        String id = bFacebookData.getString("idFacebook","");
-                        String email = bFacebookData.getString("email","");
+                        final String id = bFacebookData.getString("idFacebook","");
+                        final String email = bFacebookData.getString("email","");
+                        System.out.println(id);
+                        System.out.println(email);
 
                        ParseUser.logInInBackground(email, id, new LogInCallback() {
                            @Override
@@ -110,6 +112,24 @@ CallbackManager callbackManager;
                                }
 
                                else {
+                                   //create a new user
+                                   ParseUser new_user = new ParseUser();
+                                   new_user.setUsername(email);
+                                   new_user.setPassword(id);
+                                   new_user.signUpInBackground(new SignUpCallback() {
+                                       @Override
+                                       public void done(ParseException e) {
+                                           if(e == null){
+                                               Log.i("AppInfo", "SignUp successful");
+                                           }
+                                           else{
+                                               System.out.println("Unable to create account id ");
+                                               Toast.makeText(getApplicationContext(),e.getMessage().substring(e.getMessage().indexOf(" ")), Toast.LENGTH_LONG ).show();
+                                           }
+                                       }
+
+                                   });
+
                                    Toast.makeText(getApplicationContext(),e.getMessage().substring(e.getMessage().indexOf(" ")), Toast.LENGTH_LONG ).show();
 
                                }
@@ -178,6 +198,7 @@ CallbackManager callbackManager;
                         Toast.makeText(getApplicationContext(), "Login Successful!", Toast.LENGTH_LONG).show();
                     }
                     else {
+
                         Toast.makeText(getApplicationContext(),e.getMessage().substring(e.getMessage().indexOf(" ")), Toast.LENGTH_LONG ).show();
 
                     }
