@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">FotInspiron_App</string>
+    <string name="app_name">FotInspiron</string>
     <string name="parse_app_id">myexamplepp2345</string>
     <string name="parse_client_key">YOUR_CLIENT_KEY</string>
     <string name="facebook_app_id">153446361932176</string>
