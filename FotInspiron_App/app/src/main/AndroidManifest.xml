@@ -44,20 +44,17 @@
                 <data android:scheme="@string/fb_login_protocol_scheme" />
             </intent-filter>
         </activity>
-<<<<<<< HEAD
         <activity android:name=".UserList"
             android:label="Users List"  />
         <activity android:name=".UsersFeed"
             android:parentActivityName="com.example.anastasia.fotinspiron_app.UserList"
             >
         </activity>
-=======
 
         <activity android:name=".ProfileActivity"></activity>
 
-        <activity android:name=".UserList" />
 
->>>>>>> e06b4d01d9de74ef915f33c573f8c8edee68784a
+
     </application>
 
 </manifest>
