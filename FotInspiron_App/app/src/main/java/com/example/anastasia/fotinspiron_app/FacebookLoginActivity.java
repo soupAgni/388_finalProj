@@ -1,10 +1,19 @@
 package com.example.anastasia.fotinspiron_app;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.inputmethodservice.Keyboard;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.facebook.AccessToken;
@@ -40,16 +49,27 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
-public class FacebookLoginActivity extends AppCompatActivity {
-LoginButton loginButton;
-TextView textView;
-CallbackManager callbackManager;
+public class FacebookLoginActivity extends AppCompatActivity implements View.OnClickListener, View.OnKeyListener{
+
     EditText et_email;
     EditText et_password;
     EditText et_password_verify;
+
     Button btn_signup_or_login;
+
+    LoginButton loginButton;
+
+
     TextView tv_signup_or_login;
     TextView tv_verifyPass;
+    TextView textView;
+
+    ImageView icon;
+
+    RelativeLayout relativeLayout;
+
+    CallbackManager callbackManager;
+
     String text;
     Boolean valid = false;
     @Override
@@ -57,8 +77,8 @@ CallbackManager callbackManager;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ParseAnalytics.trackAppOpenedInBackground(getIntent());
-        loginButton = (LoginButton)findViewById(R.id.login_button);
-        textView = (TextView)findViewById(R.id.textViewLoginStatus);
+
+
         //Initilizations
         //All Edit texts
         et_email = (EditText) findViewById(R.id.et_email);
@@ -72,18 +92,43 @@ CallbackManager callbackManager;
         //All textViews
         tv_signup_or_login = (TextView) findViewById(R.id.tv_signup);
         tv_verifyPass = (TextView) findViewById(R.id.tv_verifyPass);
+        textView = (TextView)findViewById(R.id.textViewLoginStatus);
+
 
         //Initially login
         btn_signup_or_login.setText("Log In");
         et_password_verify.setVisibility(View.INVISIBLE);
         tv_verifyPass.setVisibility(View.INVISIBLE);
+
+        //Login Button
+        loginButton = (LoginButton)findViewById(R.id.login_button);
+
+        //ImageView
+        icon = (ImageView) findViewById(R.id.iv_icon);
+
+        //Relative layout
+        relativeLayout = (RelativeLayout) findViewById(R.id.rl);
       /*SpannableString content = new SpannableString("Sign Up");
       content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
       text = content.toString();*/
-        tv_signup_or_login.setText("Sign Up");
 
+        tv_signup_or_login.setText("Sign Up");
         //For the facebook login
         callbackManager = CallbackManager.Factory.create();
+        /*icon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                hideKeyboard(view);
+            }
+        });*/
+        icon.setOnClickListener(this);
+        /*relativeLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                hideKeyboard(view);
+            }
+        });*/
+        relativeLayout.setOnClickListener(this);
         loginButton.setReadPermissions(Arrays.asList("email"));
         loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>(){
             @Override
@@ -145,9 +190,6 @@ CallbackManager callbackManager;
                 request.setParameters(parameters);
                 request.executeAsync();
 
-
-
-
             }
 
             @Override
@@ -161,6 +203,7 @@ CallbackManager callbackManager;
                 Log.v("LoginActivity", error.getCause().toString());
             }
         });
+
 
     }
     public void onClickTextView(View v){
@@ -186,7 +229,7 @@ CallbackManager callbackManager;
             tv_signup_or_login.setText("Sign Up");
         }
     }
-    public void onsignUp_or_login(View v){
+   public void onsignUp_or_login(View v){
         if(btn_signup_or_login.getText().toString().equals("Log In")){
             Log.i("onsignUp_or_login", "Check for credentials");
 
@@ -204,8 +247,6 @@ CallbackManager callbackManager;
                     }
                 }
             });
-
-
         }
         else{
             //valid();
@@ -228,14 +269,8 @@ CallbackManager callbackManager;
                 }
 
             });
-            // }
-            /*else {
-                Toast.makeText(this, "Enter valid credentials!", Toast.LENGTH_LONG).show();
-                Log.i("onsignUp_or_login", "Invalid user!");
-            }*/
         }
     }
-
     public boolean valid(){
         if(et_password.getText().toString().equals(et_password_verify.getText().toString()) && et_password.getText() != null && et_email.getText() != null){
             valid = true;
@@ -268,6 +303,68 @@ CallbackManager callbackManager;
         return bundle;
     }
 
+    @Override
+    public boolean onKey(View v, int keyCode, KeyEvent event){
+
+       if(keyCode == KeyEvent.KEYCODE_ENTER && event.getAction() == KeyEvent.ACTION_DOWN){
+            onsignUp_or_login(v);
+        }
+        return false;
+    }
+    public void hideKeyboard(View view) {
+        if (view.getId() == R.id.iv_icon || view.getId() == R.id.rl) {
+            Log.i("InsideOnClick", "View id: ");
+
+            InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromInputMethod(getCurrentFocus().getWindowToken(), 0);
+        }
+    }
+
+    @Override
+    public void onClick(View view) {
+
+        Log.i("InsideOnClick","View id: " +view.getId());
+        /*if(tv_signup_or_login.getText().equals("Sign Up")){
+            Log.i("OnClickTV", "In if");
+            btn_signup_or_login.setText("Sign Up!");
+            et_password_verify.setVisibility(View.VISIBLE);
+            tv_verifyPass.setVisibility(View.VISIBLE);
+
+            *//*SpannableString content = new SpannableString("Log In");
+            content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
+            text = content.toString();*//*
+            tv_signup_or_login.setText("Log In");
+        }
+        else if(tv_signup_or_login.getText().equals("Log In")){
+            Log.i("OnClickTV", "In else");
+            btn_signup_or_login.setText("Log In");
+            et_password_verify.setVisibility(View.INVISIBLE);
+            tv_verifyPass.setVisibility(View.INVISIBLE);
+            *//*SpannableString content = new SpannableString("Sign Up");
+            content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
+            text = content.toString();*//*
+            tv_signup_or_login.setText("Sign Up");
+        }*/
+       if(view.getId() == R.id.iv_icon || view.getId() == R.id.rl){
+            Log.i("InsideOnClick","View id: " +view.getId() + "RLId: " +R.id.rl);
+            //KeyboardUtils.
+           view.postDelayed(new Runnable() {
+               @Override
+               public void run() {
+                   InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                   imm.hideSoftInputFromInputMethod(getCurrentFocus().getWindowToken(),0);
+               }
+           },50);
+
+        }
+      /*else if(view.getId() == R.id.iv_icon || view.getId() == R.id.rl){
+
+
+            InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromInputMethod(getCurrentFocus().getWindowToken(),0);
+
+        }*/
+    }
 }
 
 /* All the parse tests: Put in onCreate and see what each one does. This is a means to communicate with the parse dashboard.

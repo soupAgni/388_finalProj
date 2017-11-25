@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rl"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.anastasia.fotinspiron_app.FacebookLoginActivity">
@@ -15,43 +16,45 @@
         android:layout_centerHorizontal="true"
         android:layout_gravity="center_horizontal"
         android:layout_marginBottom="22dp" />
+
     <Button
         android:id="@+id/btn_login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Button"
+        android:layout_above="@+id/tv_signup"
+        android:layout_centerHorizontal="true"
         android:layout_marginBottom="31dp"
         android:onClick="onsignUp_or_login"
-        android:layout_above="@+id/tv_signup"
-        android:layout_centerHorizontal="true" />
+        android:text="Button" />
 
     <EditText
         android:id="@+id/et_email"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textEmailAddress"
         android:layout_above="@+id/et_password"
-        android:layout_centerHorizontal="true" />
+        android:layout_alignLeft="@+id/login_button"
+        android:layout_alignStart="@+id/login_button"
+        android:ems="10"
+        android:inputType="textEmailAddress" />
 
     <EditText
         android:id="@+id/et_password"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_above="@+id/tv_verifyPass"
+        android:layout_alignLeft="@+id/et_email"
+        android:layout_alignStart="@+id/et_email"
         android:ems="10"
-        android:inputType="textPassword"
-        android:layout_above="@+id/et_passVerify"
-        android:layout_toRightOf="@+id/textViewLoginStatus"
-        android:layout_toEndOf="@+id/textViewLoginStatus" />
+        android:inputType="textPassword" />
 
     <TextView
         android:id="@+id/textViewLoginStatus"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/et_email"
         android:layout_alignBottom="@+id/et_email"
-        android:layout_marginEnd="17dp"
-        android:layout_marginRight="17dp"
-        android:layout_toLeftOf="@+id/et_email"
+        android:layout_alignLeft="@+id/textView2"
+        android:layout_alignStart="@+id/textView2"
         android:text="Email:"
         android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
 
@@ -59,22 +62,24 @@
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/et_email"
+        android:layout_marginLeft="15dp"
+        android:layout_marginStart="15dp"
         android:text="Password:"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-        android:layout_alignBaseline="@+id/et_password"
-        android:layout_alignBottom="@+id/et_password"
-        android:layout_toLeftOf="@+id/et_password"
-        android:layout_toStartOf="@+id/et_password" />
+        android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
 
     <TextView
         android:id="@+id/tv_verifyPass"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/et_passVerify"
+        android:layout_alignBottom="@+id/et_passVerify"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
         android:text="verify password:"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-        android:layout_alignTop="@+id/et_passVerify"
-        android:layout_alignRight="@+id/textViewLoginStatus"
-        android:layout_alignEnd="@+id/textViewLoginStatus" />
+        android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
 
     <TextView
         android:id="@+id/tv_signup"
@@ -93,12 +98,12 @@
         android:id="@+id/et_passVerify"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPassword"
-        android:layout_marginBottom="26dp"
         android:layout_above="@+id/btn_login"
         android:layout_alignLeft="@+id/et_password"
-        android:layout_alignStart="@+id/et_password" />
+        android:layout_alignStart="@+id/et_password"
+        android:layout_marginBottom="26dp"
+        android:ems="10"
+        android:inputType="textPassword" />
 
     <TextView
         android:id="@+id/textViewLoginStatus"
@@ -108,5 +113,16 @@
         android:layout_alignStart="@+id/et_email"
         android:layout_below="@+id/login_button"
         android:text="TextView" />
+
+    <ImageView
+        android:id="@+id/iv_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/et_email"
+        android:layout_alignEnd="@+id/btn_login"
+        android:layout_alignRight="@+id/btn_login"
+        android:layout_marginBottom="43dp"
+
+        app:srcCompat="@mipmap/ic_launcher" />
 
 </RelativeLayout>
