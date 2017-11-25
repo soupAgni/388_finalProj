@@ -8,11 +8,14 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.facebook.AccessToken;
+import com.facebook.AccessTokenTracker;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
+import com.facebook.Profile;
+import com.facebook.ProfileTracker;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.parse.ParseAnalytics;
@@ -52,6 +55,8 @@ CallbackManager callbackManager;
     TextView tv_verifyPass;
     String text;
     Boolean valid = false;
+    private AccessTokenTracker accessTokenTracker;
+    private ProfileTracker profileTracker;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -82,13 +87,27 @@ CallbackManager callbackManager;
       text = content.toString();*/
         tv_signup_or_login.setText("Sign Up");
 
+
         //For the facebook login
         callbackManager = CallbackManager.Factory.create();
-        loginButton.setReadPermissions(Arrays.asList("email"));
+        accessTokenTracker = new AccessTokenTracker() {
+            @Override
+            protected void onCurrentAccessTokenChanged(AccessToken oldAccessToken, AccessToken currentAccessToken) {
+
+            }
+        };
+
+        accessTokenTracker.startTracking();
+        //profileTracker.startTracking();
+
+        loginButton.setReadPermissions(Arrays.asList("email","public_profile"));
         loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>(){
             @Override
             public void onSuccess(LoginResult loginResult) {
                 textView.setText("Login successful "+loginResult.getAccessToken().getUserId());
+
+              //  final Profile profile = Profile.getCurrentProfile();
+               // nextActivityProfile(profile);
                 GraphRequest request = GraphRequest.newMeRequest(loginResult.getAccessToken(), new GraphRequest.GraphJSONObjectCallback() {
                     @Override
                     public void onCompleted(JSONObject object, GraphResponse response) {
@@ -99,15 +118,33 @@ CallbackManager callbackManager;
 
                         final String id = bFacebookData.getString("idFacebook","");
                         final String email = bFacebookData.getString("email","");
-                        System.out.println(id);
-                        System.out.println(email);
+                        if (Profile.getCurrentProfile() == null){
+                            profileTracker = new ProfileTracker() {
+                                @Override
+                                protected void onCurrentProfileChanged(Profile oldProfile, Profile currentProfile) {
+
+                                    profileTracker.stopTracking();
+                                }
+                            };
+
+                        }else{
+                            Profile profile = Profile.getCurrentProfile();
+                            Intent main = new Intent(getApplicationContext(),ProfileActivity.class);
+                            main.putExtra("name",profile.getName());
+                            main.putExtra("email",email);
+                            startActivity(main);
+
+
+                        }
+
+
 
                        ParseUser.logInInBackground(email, id, new LogInCallback() {
                            @Override
                            public void done(ParseUser user, ParseException e) {
                                if(user != null){
                                    Log.i("AppInfo", "Login successful");
-                                   Toast.makeText(getApplicationContext(), "Login Successful!", Toast.LENGTH_LONG).show();
+                                   //Toast.makeText(getApplicationContext(), "Login Successful!", Toast.LENGTH_LONG).show();
 
                                }
 
@@ -124,13 +161,13 @@ CallbackManager callbackManager;
                                            }
                                            else{
                                                System.out.println("Unable to create account id ");
-                                               Toast.makeText(getApplicationContext(),e.getMessage().substring(e.getMessage().indexOf(" ")), Toast.LENGTH_LONG ).show();
+                                             //  Toast.makeText(getApplicationContext(),e.getMessage().substring(e.getMessage().indexOf(" ")), Toast.LENGTH_LONG ).show();
                                            }
                                        }
 
                                    });
 
-                                   Toast.makeText(getApplicationContext(),e.getMessage().substring(e.getMessage().indexOf(" ")), Toast.LENGTH_LONG ).show();
+                                   //Toast.makeText(getApplicationContext(),e.getMessage().substring(e.getMessage().indexOf(" ")), Toast.LENGTH_LONG ).show();
 
                                }
 
@@ -138,6 +175,7 @@ CallbackManager callbackManager;
                        });
 
                     }
+
 
                 });
                 Bundle parameters = new Bundle();
@@ -162,6 +200,23 @@ CallbackManager callbackManager;
             }
         });
 
+    }
+    @Override
+    protected  void onResume(){
+        super.onResume();
+        Profile profile = Profile.getCurrentProfile();
+
+        //nextActivity(profile);
+    }
+    @Override
+    protected void onPause(){
+        super.onPause();
+    }
+    @Override
+    protected void onStop(){
+        super.onStop();
+        accessTokenTracker.stopTracking();
+      //  profileTracker.stopTracking();
     }
     public void onClickTextView(View v){
         if(tv_signup_or_login.getText().equals("Sign Up")){
@@ -194,8 +249,14 @@ CallbackManager callbackManager;
                 @Override
                 public void done(ParseUser user, ParseException e) {
                     if(user != null){
+
+
                         Log.i("AppInfo", "Login successful");
-                        Toast.makeText(getApplicationContext(), "Login Successful!", Toast.LENGTH_LONG).show();
+                        Intent main = new Intent(getApplicationContext(),ProfileActivity.class);
+                        main.putExtra("email",et_email.getText().toString());
+                        main.putExtra("name","");
+                        startActivity(main);
+                        //Toast.makeText(getApplicationContext(), "Login Successful!", Toast.LENGTH_LONG).show();
                     }
                     else {
 
@@ -267,8 +328,21 @@ CallbackManager callbackManager;
         }
         return bundle;
     }
+/*
+    private void nextActivity(Profile profile,String email){
+        if (profile !=null){
+            Intent main = new Intent(this,ProfileActivity.class);
+            main.putExtra("name",profile.getName());
+            main.putExtra("email",email);
+            startActivity(main);
+
+        }
+
+    }
+    */
 
 }
+
 
 /* All the parse tests: Put in onCreate and see what each one does. This is a means to communicate with the parse dashboard.
 
