@@ -10,7 +10,9 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.Window;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -49,6 +51,15 @@ public class UserList extends AppCompatActivity implements SearchView.OnQueryTex
          arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, usernames);
 
          userList = findViewById(R.id.lv_userslist);
+
+         userList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+             @Override
+             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                 Intent intent = new Intent(getApplicationContext(), UsersFeed.class);
+                 intent.putExtra("username", usernames.get(i));
+                 startActivity(intent);
+             }
+         });
         //getting the query from the parse users class
         ParseQuery<ParseUser> query = ParseUser.getQuery();
         //You dont want it to get your own username
@@ -112,6 +123,11 @@ public class UserList extends AppCompatActivity implements SearchView.OnQueryTex
             startActivityForResult(i, 1);
 
 
+        }
+        else if(id == R.id.logout){
+            ParseUser.logOut();
+            Intent i = new Intent(getApplicationContext(), FacebookLoginActivity.class);
+            startActivity(i);
         }
         return super.onOptionsItemSelected(item);
     }

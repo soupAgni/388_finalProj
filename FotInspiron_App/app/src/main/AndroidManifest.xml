@@ -44,7 +44,12 @@
                 <data android:scheme="@string/fb_login_protocol_scheme" />
             </intent-filter>
         </activity>
-        <activity android:name=".UserList" />
+        <activity android:name=".UserList"
+            android:label="Users List"  />
+        <activity android:name=".UsersFeed"
+            android:parentActivityName="com.example.anastasia.fotinspiron_app.UserList"
+            >
+        </activity>
     </application>
 
 </manifest>

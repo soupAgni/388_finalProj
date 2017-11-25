@@ -148,6 +148,7 @@ public class FacebookLoginActivity extends AppCompatActivity implements View.OnC
                         final String email = bFacebookData.getString("email","");
                         System.out.println(id);
                         System.out.println(email);
+                        DispUserList();
 
                        ParseUser.logInInBackground(email, id, new LogInCallback() {
                            @Override
@@ -155,7 +156,7 @@ public class FacebookLoginActivity extends AppCompatActivity implements View.OnC
                                if(user != null){
                                    Log.i("AppInfo", "Login successful");
                                    Toast.makeText(getApplicationContext(), "Login Successful!", Toast.LENGTH_LONG).show();
-                                   DispUserList();
+                                   //DispUserList();
                                }
 
                                else {
@@ -313,6 +314,7 @@ public class FacebookLoginActivity extends AppCompatActivity implements View.OnC
         return bundle;
     }
 
+    //keyboard feature
     @Override
     public boolean onKey(View v, int keyCode, KeyEvent event){
 
