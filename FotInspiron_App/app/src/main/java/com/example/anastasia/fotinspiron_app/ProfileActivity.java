@@ -4,9 +4,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.EditText;
 
+import com.parse.GetCallback;
+import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
+
+import java.util.List;
 
 public class ProfileActivity extends AppCompatActivity {
  EditText editText1;
@@ -20,7 +24,11 @@ public class ProfileActivity extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
         if (bundle!=null){
 
-            //ParseUser parseUser = ParseUser.getCurrentUser();
+            ParseQuery<ParseObject> query = ParseQuery.getQuery("_User");
+
+
+
+
             //parseUser.add("trial","blabla");
             String email = bundle.getString("email","");
             String name = bundle.getString("name","");

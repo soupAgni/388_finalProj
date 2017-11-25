@@ -43,27 +43,31 @@ public class UsersFeed extends AppCompatActivity {
             public void done(List<ParseObject> objects, ParseException e) {
                 if(e == null){
                     if(objects.size() > 0){
-                        for(ParseObject object : objects){
+                        for(ParseObject object : objects) {
 
                             //pointer to the file
                             ParseFile file = (ParseFile) object.get("images");
-                            file.getDataInBackground(new GetDataCallback() {
-                                @Override
-                                public void done(byte[] data, ParseException e) {
-                                    if(e == null){
-                                        //convert the byte array to an image
-                                        Bitmap image = BitmapFactory.decodeByteArray(data, 0 , data.length);
-                                        ImageView imageview = new ImageView(getApplicationContext());
+                            if (file != null) {
+                                file.getDataInBackground(new GetDataCallback() {
+                                    @Override
+                                    public void done(byte[] data, ParseException e) {
+                                        if (e == null) {
+                                            //convert the byte array to an image
+                                            Bitmap image = BitmapFactory.decodeByteArray(data, 0, data.length);
 
-                                        imageview.setImageBitmap(image);
+                                            ImageView imageview = new ImageView(getApplicationContext());
 
-                                        imageview.setLayoutParams(new ViewGroup.LayoutParams(
-                                                ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT
-                                        ));
-                                        ll.addView(imageview);
+                                            imageview.setImageBitmap(image);
+
+                                            imageview.setLayoutParams(new ViewGroup.LayoutParams(
+                                                    ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT
+                                            ));
+                                            ll.addView(imageview);
+                                        }
                                     }
-                                }
-                            });
+
+                                });
+                            }
                         }
                     }
                 }

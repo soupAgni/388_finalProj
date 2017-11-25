@@ -395,18 +395,7 @@ public class FacebookLoginActivity extends AppCompatActivity implements View.OnC
         }
         return bundle;
     }
-/*
-    private void nextActivity(Profile profile,String email){
-        if (profile !=null){
-            Intent main = new Intent(this,ProfileActivity.class);
-            main.putExtra("name",profile.getName());
-            main.putExtra("email",email);
-            startActivity(main);
 
-        }
-
-    }
-    */
 
     //keyboard feature
     @Override
