@@ -64,8 +64,7 @@ public class FacebookLoginActivity extends AppCompatActivity implements View.OnC
 
 
     TextView tv_signup_or_login;
-    TextView tv_verifyPass;
-    TextView textView;
+
 
     ImageView icon;
 
@@ -96,14 +95,12 @@ public class FacebookLoginActivity extends AppCompatActivity implements View.OnC
 
         //All textViews
         tv_signup_or_login = (TextView) findViewById(R.id.tv_signup);
-        tv_verifyPass = (TextView) findViewById(R.id.tv_verifyPass);
-        textView = (TextView)findViewById(R.id.textViewLoginStatus);
 
 
         //Initially login
         btn_signup_or_login.setText("Log In");
         et_password_verify.setVisibility(View.INVISIBLE);
-        tv_verifyPass.setVisibility(View.INVISIBLE);
+
 
         //Login Button
         loginButton = (LoginButton)findViewById(R.id.login_button);
@@ -148,16 +145,25 @@ public class FacebookLoginActivity extends AppCompatActivity implements View.OnC
                 hideKeyboard(view);
             }
         });*/
+        //if user is already logged in, start userlist intent
+        if(ParseUser.getCurrentUser() != null){
+            DispUserList();
+        }
         relativeLayout.setOnClickListener(this);
         loginButton.setReadPermissions(Arrays.asList("email"));
 
         loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>(){
             @Override
             public void onSuccess(LoginResult loginResult) {
-                textView.setText("Login successful "+loginResult.getAccessToken().getUserId());
+
+               // textView.setText("Login successful "+loginResult.getAccessToken().getUserId());
 
               //  final Profile profile = Profile.getCurrentProfile();
                // nextActivityProfile(profile);
+
+                //textView.setText("Login successful "+loginResult.getAccessToken().getUserId());
+                Log.i("FBLogin", "login successful");
+
                 GraphRequest request = GraphRequest.newMeRequest(loginResult.getAccessToken(), new GraphRequest.GraphJSONObjectCallback() {
                     @Override
                     public void onCompleted(JSONObject object, GraphResponse response) {
@@ -194,7 +200,12 @@ public class FacebookLoginActivity extends AppCompatActivity implements View.OnC
                            public void done(ParseUser user, ParseException e) {
                                if(user != null){
                                    Log.i("AppInfo", "Login successful");
+
                                    //Toast.makeText(getApplicationContext(), "Login Successful!", Toast.LENGTH_LONG).show();
+
+
+                                   Toast.makeText(getApplicationContext(), "Login Successful!", Toast.LENGTH_LONG).show();
+                                   DispUserList();
 
                                }
 
@@ -208,6 +219,10 @@ public class FacebookLoginActivity extends AppCompatActivity implements View.OnC
                                        public void done(ParseException e) {
                                            if(e == null){
                                                Log.i("AppInfo", "SignUp successful");
+                                               Toast.makeText(getApplicationContext(),"Signup successful!", Toast.LENGTH_LONG ).show();
+
+                                               DispUserList();
+
                                            }
                                            else{
                                                System.out.println("Unable to create account id ");
@@ -237,7 +252,7 @@ public class FacebookLoginActivity extends AppCompatActivity implements View.OnC
 
             @Override
             public void onCancel() {
-                textView.setText("Login cancelled");
+                Log.i("OnCancelFB", "Login cancelled");
             }
 
             @Override
@@ -271,7 +286,6 @@ public class FacebookLoginActivity extends AppCompatActivity implements View.OnC
             Log.i("OnClickTV", "In if");
             btn_signup_or_login.setText("Sign Up!");
             et_password_verify.setVisibility(View.VISIBLE);
-            tv_verifyPass.setVisibility(View.VISIBLE);
 
             /*SpannableString content = new SpannableString("Log In");
             content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
@@ -282,7 +296,6 @@ public class FacebookLoginActivity extends AppCompatActivity implements View.OnC
             Log.i("OnClickTV", "In else");
             btn_signup_or_login.setText("Log In");
             et_password_verify.setVisibility(View.INVISIBLE);
-            tv_verifyPass.setVisibility(View.INVISIBLE);
             /*SpannableString content = new SpannableString("Sign Up");
             content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
             text = content.toString();*/
@@ -300,11 +313,18 @@ public class FacebookLoginActivity extends AppCompatActivity implements View.OnC
 
 
                         Log.i("AppInfo", "Login successful");
+
                         Intent main = new Intent(getApplicationContext(),ProfileActivity.class);
                         main.putExtra("email",et_email.getText().toString());
                         main.putExtra("name","");
                         startActivity(main);
                         //Toast.makeText(getApplicationContext(), "Login Successful!", Toast.LENGTH_LONG).show();
+
+                        Toast.makeText(getApplicationContext(), "Login Successful!", Toast.LENGTH_LONG).show();
+                        //Toast.makeText(getApplicationContext(),e.getMessage().substring(e.getMessage().indexOf(" ")), Toast.LENGTH_LONG ).show();
+                        DispUserList();
+
+
                     }
                     else {
 
@@ -328,6 +348,9 @@ public class FacebookLoginActivity extends AppCompatActivity implements View.OnC
                 public void done(ParseException e) {
                     if(e == null){
                         Log.i("AppInfo", "SignUp successful");
+                        Toast.makeText(getApplicationContext(), "Signup Successful!", Toast.LENGTH_LONG).show();
+                        DispUserList();
+
                     }
                     else{
                         Toast.makeText(getApplicationContext(),e.getMessage().substring(e.getMessage().indexOf(" ")), Toast.LENGTH_LONG ).show();
@@ -396,6 +419,10 @@ public class FacebookLoginActivity extends AppCompatActivity implements View.OnC
             InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromInputMethod(getCurrentFocus().getWindowToken(), 0);
         }
+    }
+    private void DispUserList(){
+        Intent i = new Intent(getApplicationContext(), UserList.class);
+        startActivity(i);
     }
 
     @Override
