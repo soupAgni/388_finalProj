@@ -133,7 +133,7 @@ public class UserList extends AppCompatActivity implements SearchView.OnQueryTex
                 public void done(ParseException e) {
 
 
-                    ParseUser.logOut();
+
                     Intent i = new Intent(UserList.this, FacebookLoginActivity.class);
                     startActivity(i);
 
