@@ -74,8 +74,7 @@ public class FacebookLoginActivity extends AppCompatActivity implements View.OnC
 
     String text;
     Boolean valid = false;
-    private AccessTokenTracker accessTokenTracker;
-    private ProfileTracker profileTracker;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -117,16 +116,6 @@ public class FacebookLoginActivity extends AppCompatActivity implements View.OnC
 
         //For the facebook login
         callbackManager = CallbackManager.Factory.create();
-        accessTokenTracker = new AccessTokenTracker() {
-            @Override
-            protected void onCurrentAccessTokenChanged(AccessToken oldAccessToken, AccessToken currentAccessToken) {
-
-            }
-        };
-
-        accessTokenTracker.startTracking();
-        //profileTracker.startTracking();
-
         loginButton.setReadPermissions(Arrays.asList("email","public_profile"));
 
         tv_signup_or_login.setText("Sign Up");
@@ -145,10 +134,11 @@ public class FacebookLoginActivity extends AppCompatActivity implements View.OnC
                 hideKeyboard(view);
             }
         });*/
-        //if user is already logged in, start userlist intent
+
         if(ParseUser.getCurrentUser() != null){
             DispUserList();
         }
+
         relativeLayout.setOnClickListener(this);
         loginButton.setReadPermissions(Arrays.asList("email"));
 
@@ -156,12 +146,7 @@ public class FacebookLoginActivity extends AppCompatActivity implements View.OnC
             @Override
             public void onSuccess(LoginResult loginResult) {
 
-               // textView.setText("Login successful "+loginResult.getAccessToken().getUserId());
 
-              //  final Profile profile = Profile.getCurrentProfile();
-               // nextActivityProfile(profile);
-
-                //textView.setText("Login successful "+loginResult.getAccessToken().getUserId());
                 Log.i("FBLogin", "login successful");
 
                 GraphRequest request = GraphRequest.newMeRequest(loginResult.getAccessToken(), new GraphRequest.GraphJSONObjectCallback() {
@@ -174,44 +159,19 @@ public class FacebookLoginActivity extends AppCompatActivity implements View.OnC
 
                         final String id = bFacebookData.getString("idFacebook","");
                         final String email = bFacebookData.getString("email","");
-
-                        System.out.println(id);
-                        System.out.println(email);
                         DispUserList();
-
-                        if (Profile.getCurrentProfile() == null){
-                            profileTracker = new ProfileTracker() {
-                                @Override
-                                protected void onCurrentProfileChanged(Profile oldProfile, Profile currentProfile) {
-
-                                    profileTracker.stopTracking();
-                                }
-                            };
-
-                        }else{
-                            Profile profile = Profile.getCurrentProfile();
-                            Intent main = new Intent(getApplicationContext(),ProfileActivity.class);
-                            main.putExtra("name",profile.getName());
-                            main.putExtra("email",email);
-                            startActivity(main);
-
-
-                        }
-
                        ParseUser.logInInBackground(email, id, new LogInCallback() {
                            @Override
                            public void done(ParseUser user, ParseException e) {
                                if(user != null){
                                    Log.i("AppInfo", "Login successful");
 
-                                   //Toast.makeText(getApplicationContext(), "Login Successful!", Toast.LENGTH_LONG).show();
-
 
                                    Toast.makeText(getApplicationContext(), "Login Successful!", Toast.LENGTH_LONG).show();
 
                                    //DispUserList();
 
-                                   DispUserList();
+                                //   DispUserList();
                                }
 
                                else {
@@ -271,9 +231,7 @@ public class FacebookLoginActivity extends AppCompatActivity implements View.OnC
     @Override
     protected  void onResume(){
         super.onResume();
-        Profile profile = Profile.getCurrentProfile();
 
-        //nextActivity(profile);
     }
     @Override
     protected void onPause(){
@@ -282,8 +240,7 @@ public class FacebookLoginActivity extends AppCompatActivity implements View.OnC
     @Override
     protected void onStop(){
         super.onStop();
-        accessTokenTracker.stopTracking();
-      //  profileTracker.stopTracking();
+
     }
     public void onClickTextView(View v){
         if(tv_signup_or_login.getText().equals("Sign Up")){
@@ -318,10 +275,6 @@ public class FacebookLoginActivity extends AppCompatActivity implements View.OnC
 
                         Log.i("AppInfo", "Login successful");
 
-                        Intent main = new Intent(getApplicationContext(),ProfileActivity.class);
-                        main.putExtra("email",et_email.getText().toString());
-                        main.putExtra("name","");
-                        startActivity(main);
                         //Toast.makeText(getApplicationContext(), "Login Successful!", Toast.LENGTH_LONG).show();
 
                         Toast.makeText(getApplicationContext(), "Login Successful!", Toast.LENGTH_LONG).show();
@@ -353,7 +306,7 @@ public class FacebookLoginActivity extends AppCompatActivity implements View.OnC
                     if(e == null){
                         Log.i("AppInfo", "SignUp successful");
                         Toast.makeText(getApplicationContext(), "Signup Successful!", Toast.LENGTH_LONG).show();
-                        DispUserList();
+                       DispUserList();
 
                     }
                     else{

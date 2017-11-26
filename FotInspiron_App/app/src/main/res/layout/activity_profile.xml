@@ -10,7 +10,7 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Name"
+        android:text="Username"
         tools:layout_editor_absoluteX="16dp"
         tools:layout_editor_absoluteY="57dp"
         />
@@ -30,10 +30,12 @@
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
         android:layout_below="@+id/textView3"
-        android:layout_marginTop="75dp"
-        android:layout_toLeftOf="@+id/textView3"
-        android:layout_toStartOf="@+id/textView3"
+        android:layout_marginLeft="13dp"
+        android:layout_marginStart="13dp"
+        android:layout_marginTop="53dp"
         android:text="Email" />
 
     <EditText
@@ -45,6 +47,7 @@
         android:layout_alignStart="@+id/textView3"
         android:layout_marginLeft="15dp"
         android:layout_marginStart="15dp"
+        android:inputType="textEmailAddress"
         android:text="TextView" />
 
     <Button
@@ -52,10 +55,30 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignEnd="@+id/textView3"
+        android:layout_alignParentBottom="true"
         android:layout_alignRight="@+id/textView3"
-        android:layout_below="@+id/textView5"
-        android:layout_marginEnd="51dp"
-        android:layout_marginRight="51dp"
-        android:layout_marginTop="118dp"
+        android:layout_marginBottom="20dp"
+        android:layout_marginEnd="17dp"
+        android:layout_marginRight="17dp"
         android:text="Update info" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/textView4"
+        android:layout_alignStart="@+id/textView4"
+        android:layout_below="@+id/textView4"
+        android:layout_marginTop="68dp"
+        android:text="Preferred First Name" />
+
+    <EditText
+        android:id="@+id/textView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/textView2"
+        android:layout_alignBottom="@+id/textView2"
+        android:layout_alignLeft="@+id/textView5"
+        android:layout_alignStart="@+id/textView5"
+        android:text="TextView" />
 </RelativeLayout>

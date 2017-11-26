@@ -132,6 +132,10 @@ public class UserList extends AppCompatActivity implements SearchView.OnQueryTex
             Intent i = new Intent(UserList.this, FacebookLoginActivity.class);
             startActivity(i);
         }
+        if (id == R.id.profile){
+            Intent main = new Intent(UserList.this,ProfileActivity.class);
+            startActivity(main);
+        }
         return super.onOptionsItemSelected(item);
     }
 
