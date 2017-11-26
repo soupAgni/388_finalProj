@@ -131,9 +131,6 @@ public class UserList extends AppCompatActivity implements SearchView.OnQueryTex
             ParseUser.logOutInBackground(new LogOutCallback() {
                 @Override
                 public void done(ParseException e) {
-
-
-
                     Intent i = new Intent(UserList.this, FacebookLoginActivity.class);
                     startActivity(i);
 
@@ -185,6 +182,7 @@ public class UserList extends AppCompatActivity implements SearchView.OnQueryTex
                             Toast.makeText(getApplication().getBaseContext(), "Your image has been posted!", Toast.LENGTH_LONG).show();
                         }
                         else{
+                            e.printStackTrace();
                             Toast.makeText(getApplication().getBaseContext(), "Error - Please try again", Toast.LENGTH_LONG).show();
 
                         }
