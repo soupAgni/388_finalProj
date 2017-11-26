@@ -20,6 +20,7 @@ import android.widget.SearchView;
 import android.widget.Toast;
 
 import com.parse.FindCallback;
+import com.parse.LogOutCallback;
 import com.parse.ParseACL;
 import com.parse.ParseException;
 import com.parse.ParseFile;
@@ -127,10 +128,20 @@ public class UserList extends AppCompatActivity implements SearchView.OnQueryTex
 
         }
         if(id == R.id.logout){
-            ParseUser.logOut();
+            ParseUser.logOutInBackground(new LogOutCallback() {
+                @Override
+                public void done(ParseException e) {
+
+
+                    ParseUser.logOut();
+                    Intent i = new Intent(UserList.this, FacebookLoginActivity.class);
+                    startActivity(i);
+
+                }
+            });
             Log.i("onOptionsSelectedItem", "Log out");
-            Intent i = new Intent(UserList.this, FacebookLoginActivity.class);
-            startActivity(i);
+            //Intent i = new Intent(UserList.this, FacebookLoginActivity.class);
+           // startActivity(i);
         }
         if (id == R.id.profile){
             Intent main = new Intent(UserList.this,ProfileActivity.class);

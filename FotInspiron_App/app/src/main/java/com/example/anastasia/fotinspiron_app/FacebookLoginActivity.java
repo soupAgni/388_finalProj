@@ -139,6 +139,7 @@ public class FacebookLoginActivity extends AppCompatActivity implements View.OnC
             DispUserList();
         }
 
+
         relativeLayout.setOnClickListener(this);
         loginButton.setReadPermissions(Arrays.asList("email"));
 
