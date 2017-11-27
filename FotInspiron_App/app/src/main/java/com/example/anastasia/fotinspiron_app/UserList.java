@@ -125,7 +125,6 @@ public class UserList extends AppCompatActivity implements SearchView.OnQueryTex
             Intent i = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
             startActivityForResult(i, 1);
 
-
         }
         if(id == R.id.logout){
             ParseUser.logOutInBackground(new LogOutCallback() {
@@ -147,7 +146,7 @@ public class UserList extends AppCompatActivity implements SearchView.OnQueryTex
         return super.onOptionsItemSelected(item);
     }
 
-    //getting the image from the activity
+    //getting the image from the external activity
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -159,14 +158,29 @@ public class UserList extends AppCompatActivity implements SearchView.OnQueryTex
 
                 Log.i("AppInfo", "ImageRecieved");
 
-                //in otder to pass it into parse
+                //in order to pass it into parse
+                //(like the stream we get in the web when we download it)
                 ByteArrayOutputStream stream = new ByteArrayOutputStream();
 
+                //do not compress for now
                 bitmapImage.compress(Bitmap.CompressFormat.PNG, 100, stream);
                 //store the image as a byte array
                 byte[] byteArray = stream.toByteArray();
                 //convert to parse file before passing into parse
                 ParseFile file = new ParseFile("image.png", byteArray);
+                /*file.saveInBackground(new SaveCallback() {
+                    @Override
+                    public void done(ParseException e) {
+                        if(e == null){
+                            Log.i("fileSave: ", "Successful");
+                        }
+                        else{
+                            Log.i("fileSave: ", "UnSuccessful");
+                            e.printStackTrace();
+                            Log.i("fileSave: ", "UnSuccessful");
+                        }
+                    }
+                });*/
                 ParseObject object = new ParseObject("Images");
 
                 object.put("username", ParseUser.getCurrentUser().getUsername());
@@ -175,6 +189,7 @@ public class UserList extends AppCompatActivity implements SearchView.OnQueryTex
                 /*ParseACL parseACL = new ParseACL();
                 parseACL.setPublicReadAccess(true);
                 object.setACL(parseACL);*/
+
                 object.saveInBackground(new SaveCallback() {
                     @Override
                     public void done(ParseException e) {
@@ -182,8 +197,10 @@ public class UserList extends AppCompatActivity implements SearchView.OnQueryTex
                             Toast.makeText(getApplication().getBaseContext(), "Your image has been posted!", Toast.LENGTH_LONG).show();
                         }
                         else{
+                            Log.i("SaveInBg", "Couldnt save");
                             e.printStackTrace();
                             Toast.makeText(getApplication().getBaseContext(), "Error - Please try again", Toast.LENGTH_LONG).show();
+                            Log.i("SaveInBg", "Couldnt save");
 
                         }
                     }
@@ -191,6 +208,8 @@ public class UserList extends AppCompatActivity implements SearchView.OnQueryTex
 
             } catch (IOException e) {
                 e.printStackTrace();
+                Toast.makeText(getApplication().getBaseContext(), "Error Before save in Bg", Toast.LENGTH_LONG).show();
+
             }
 
         }

@@ -41,8 +41,6 @@ public class ProfileActivity extends AppCompatActivity {
         editText3 = (EditText)findViewById(R.id.textView6);
         editText4 = (EditText)findViewById(R.id.textView8);
 
-
-
         button = (Button)findViewById(R.id.button2) ;
 
         ParseUser.getCurrentUser().fetchInBackground(new GetCallback<ParseObject>() {
