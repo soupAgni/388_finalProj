@@ -5,6 +5,8 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -20,16 +22,17 @@ import java.util.List;
 
 public class UsersFeed extends AppCompatActivity {
 
-
+   String username = "";
     LinearLayout ll;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_users_feed);
 
         ll = findViewById(R.id.linearlayout);
         Intent i = getIntent();
-        String username = i.getStringExtra("username");
+        username = i.getStringExtra("username");
 
         setTitle(username + "'s Feed");
 
@@ -74,4 +77,22 @@ public class UsersFeed extends AppCompatActivity {
             }
         });
     }
-}
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_user_view, menu);
+        return true;
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.profile){
+            Intent main = new Intent(getApplicationContext(),UserProfile.class);
+            main.putExtra("username", username);
+            startActivity(main);
+        }
+        return super.onOptionsItemSelected(item);
+
+    }
+
+
+    }

@@ -70,6 +70,7 @@ public class ProfileActivity extends AppCompatActivity {
 
             }
         });
+
         final String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
         editText2.addTextChangedListener(new TextWatcher() {
             @Override
