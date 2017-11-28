@@ -41,7 +41,7 @@ public class updateDescription extends AppCompatActivity {
                     @Override
                     public void done(ParseObject object, ParseException e) {
                         if(e == null){
-                            object.put("description", descripton);
+                            object.put("description", descripton.getText().toString());
                             object.saveInBackground();
                             Toast.makeText(getApplicationContext(), "Description updated!", Toast.LENGTH_SHORT).show();
                             Log.i("DescriptionUpdate", "Success");

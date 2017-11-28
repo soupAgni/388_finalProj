@@ -210,8 +210,6 @@ public class UserList extends AppCompatActivity implements SearchView.OnQueryTex
                         if(e == null){
 
                             Intent i = new Intent(getApplicationContext(), updateDescription.class);
-
-
                             String text = "Your image has been posted!";
                             String id = object.getObjectId();
                             i.putExtra("id", id);
