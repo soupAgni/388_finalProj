@@ -208,6 +208,9 @@ public class UserList extends AppCompatActivity implements SearchView.OnQueryTex
                     @Override
                     public void done(ParseException e) {
                         if(e == null){
+
+                            Intent i = new Intent(getApplicationContext(), updateDescription.class);
+                            startActivity(i);
                             String text = "Your image has been posted!";
                             NotifyUser(text);
                         }
@@ -215,8 +218,6 @@ public class UserList extends AppCompatActivity implements SearchView.OnQueryTex
                             String text = "Could not save";
                             NotifyUser(text);
                             //e.printStackTrace();
-
-
                         }
                     }
                 });
