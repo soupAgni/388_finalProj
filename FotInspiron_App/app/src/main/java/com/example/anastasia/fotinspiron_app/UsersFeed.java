@@ -46,6 +46,7 @@ public class UsersFeed extends AppCompatActivity {
             public void done(List<ParseObject> objects, ParseException e) {
                 if(e == null){
                     if(objects.size() > 0){
+
                         for(ParseObject object : objects) {
 
                             //pointer to the file

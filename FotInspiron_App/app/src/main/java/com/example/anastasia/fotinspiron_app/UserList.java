@@ -27,6 +27,7 @@ import com.parse.ParseFile;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
+import com.parse.ProgressCallback;
 import com.parse.SaveCallback;
 
 import java.io.ByteArrayOutputStream;
@@ -165,16 +166,34 @@ public class UserList extends AppCompatActivity implements SearchView.OnQueryTex
                 bitmapImage.compress(Bitmap.CompressFormat.PNG, 100, stream);
                 //store the image as a byte array
                 byte[] byteArray = stream.toByteArray();
+                System.out.println(byteArray.length);
                 //convert to parse file before passing into parse
                 ParseFile file = new ParseFile("image.png", byteArray);
                 ParseObject object = new ParseObject("Images");
+                file.saveInBackground(new SaveCallback() {
+                    @Override
+                    public void done(ParseException e) {
+                        if (e == null) {
+                          System.out.println("Done");
+                        } else {
+                           e.printStackTrace();
+                        }
+                    }
+                }, new ProgressCallback() {
+                    @Override
+                    public void done(Integer percentDone) {
+                     System.out.println(percentDone);
+                    }
+                });
+
 
                 object.put("username", ParseUser.getCurrentUser().getUsername());
                 object.put("images", file);
-
-                /*ParseACL parseACL = new ParseACL();
+                 /*
+                ParseACL parseACL = new ParseACL();
                 parseACL.setPublicReadAccess(true);
-                object.setACL(parseACL);*/
+                object.setACL(parseACL);
+                8*/
                 object.saveInBackground(new SaveCallback() {
                     @Override
                     public void done(ParseException e) {

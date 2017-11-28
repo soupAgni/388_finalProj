@@ -30,13 +30,13 @@ public class StarterApplication extends Application {
 
     // Add your initialization code here
     Parse.initialize(new Parse.Configuration.Builder(getApplicationContext())
-            .applicationId("myexamplepp2345")
+            .applicationId("123436")
             .clientKey(null)
-            .server("https://myexampleapp234.herokuapp.com/parse/")
+            .server("https://myappfotinspiron.herokuapp.com/parse/")
     .build()
     );
 
-      /*ParseObject gameScore = new ParseObject("GameScore");
+      ParseObject gameScore = new ParseObject("GameScore");
       gameScore.put("score", 1337);
       gameScore.put("playerName", "Ricardo Plott");
       gameScore.put("cheatMode", false);
@@ -49,11 +49,11 @@ public class StarterApplication extends Application {
               }
           }
       });
-*/
+
 
     ParseACL defaultACL = new ParseACL();
     // Optionally enable public read access.
-    // defaultACL.setPublicReadAccess(true);
+     defaultACL.setPublicReadAccess(true);
     ParseACL.setDefaultACL(defaultACL, true);
   }
 }
