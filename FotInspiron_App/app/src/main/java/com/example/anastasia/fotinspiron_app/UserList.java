@@ -60,7 +60,7 @@ public class UserList extends AppCompatActivity implements SearchView.OnQueryTex
         searchview = findViewById(R.id.search);
          usernames = new ArrayList<String>();
 
-         arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, usernames);
+         arrayAdapter = new ArrayAdapter<String>(this, R.layout.singlerow, usernames);
 
          userList = findViewById(R.id.lv_userslist);
 
