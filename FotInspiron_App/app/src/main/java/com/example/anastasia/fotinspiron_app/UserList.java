@@ -197,10 +197,10 @@ public class UserList extends AppCompatActivity implements SearchView.OnQueryTex
                             Toast.makeText(getApplication().getBaseContext(), "Your image has been posted!", Toast.LENGTH_LONG).show();
                         }
                         else{
-                            Log.i("SaveInBg", "Couldnt save");
+                            Log.i("SaveInBg", "Could'nt save");
                             e.printStackTrace();
                             Toast.makeText(getApplication().getBaseContext(), "Error - Please try again", Toast.LENGTH_LONG).show();
-                            Log.i("SaveInBg", "Couldnt save");
+                            Log.i("SaveInBg", "Could'nt save");
 
                         }
                     }
