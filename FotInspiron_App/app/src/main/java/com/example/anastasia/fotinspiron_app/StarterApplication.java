@@ -36,7 +36,7 @@ public class StarterApplication extends Application {
     .build()
     );
 
-      ParseObject gameScore = new ParseObject("GameScore");
+      /*ParseObject gameScore = new ParseObject("GameScore");
       gameScore.put("score", 1337);
       gameScore.put("playerName", "Ricardo Plott");
       gameScore.put("cheatMode", false);
@@ -48,7 +48,7 @@ public class StarterApplication extends Application {
                   Log.i("Parse", "Save Failed");
               }
           }
-      });
+      });*/
 
 
     ParseACL defaultACL = new ParseACL();

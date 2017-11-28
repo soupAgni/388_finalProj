@@ -54,9 +54,14 @@
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:parentActivityName=".UserList"></activity>
         <activity android:name=".ProfileActivity"
+
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"/>
         <activity android:name=".UserProfile"
+            android:parentActivityName=".UserList"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"></activity>
+
+
+
     </application>
 
 </manifest>

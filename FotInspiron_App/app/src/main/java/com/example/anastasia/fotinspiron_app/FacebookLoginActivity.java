@@ -160,7 +160,7 @@ public class FacebookLoginActivity extends AppCompatActivity implements View.OnC
 
                         final String id = bFacebookData.getString("idFacebook","");
                         final String email = bFacebookData.getString("email","");
-                        DispUserList();
+                        //DispUserList();
                        ParseUser.logInInBackground(email, id, new LogInCallback() {
                            @Override
                            public void done(ParseUser user, ParseException e) {
@@ -170,7 +170,7 @@ public class FacebookLoginActivity extends AppCompatActivity implements View.OnC
 
                                    Toast.makeText(getApplicationContext(), "Login Successful!", Toast.LENGTH_LONG).show();
 
-                                   //DispUserList();
+                                   DispUserList();
 
                                 //   DispUserList();
                                }
