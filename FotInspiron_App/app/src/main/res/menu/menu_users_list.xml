@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools" tools:context="com.example.anastasia.fotinspiron_app.UserList">
 
-    <item android:id="@+id/share" android:title="share" app:showAsAction="always"/>
+    <item android:id="@+id/share" android:title="share"  app:showAsAction="always"/>
     <item android:id="@+id/profile" android:title="profile" app:showAsAction="always"/>
     <item android:id="@+id/logout" android:title="logout" app:showAsAction="always"/>
 

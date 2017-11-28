@@ -5,6 +5,7 @@
     android:id="@+id/rl"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorBackground"
     tools:context="com.example.anastasia.fotinspiron_app.FacebookLoginActivity">
 
 
@@ -25,7 +26,9 @@
         android:layout_below="@+id/et_password"
         android:layout_marginTop="50dp"
         android:onClick="onsignUp_or_login"
-        android:text="Button" />
+        android:text="Submit"
+        android:textColor="@color/colorTextColor"
+        android:background="@color/colorButtoncolor"/>
 
     <EditText
         android:id="@+id/et_email"
@@ -35,6 +38,7 @@
         android:layout_centerHorizontal="true"
         android:ems="10"
         android:hint="Username"
+        android:textColorHint="@color/colorTextColor"
         android:inputType="textEmailAddress" />
 
     <EditText
@@ -46,6 +50,7 @@
         android:layout_alignStart="@+id/et_email"
         android:ems="10"
         android:hint="Password"
+        android:textColorHint="@color/colorTextColor"
         android:inputType="textPassword" />
 
 
@@ -58,7 +63,7 @@
         android:layout_below="@+id/btn_login"
         android:clickable="true"
         android:onClick="onClickTextView"
-        android:textColor="#1d27ff"
+        android:textColor="@color/colorTextColor"
         android:text="TextView"
         android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
 
@@ -71,6 +76,7 @@
         android:layout_centerVertical="true"
         android:ems="10"
         android:hint="Retype Password"
+        android:textColorHint="@color/colorTextColor"
         android:inputType="textPassword" />
 
 

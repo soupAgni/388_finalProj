@@ -47,12 +47,16 @@
         </activity>
         <activity
             android:name=".UserList"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:label="Users List" />
         <activity
             android:name=".UsersFeed"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:parentActivityName=".UserList"></activity>
-        <activity android:name=".ProfileActivity" />
-        <activity android:name=".UserProfile"></activity>
+        <activity android:name=".ProfileActivity"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"/>
+        <activity android:name=".UserProfile"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"></activity>
     </application>
 
 </manifest>

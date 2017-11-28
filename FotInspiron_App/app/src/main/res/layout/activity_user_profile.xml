@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorBackground"
     tools:context="com.example.anastasia.fotinspiron_app.UserProfile">
 
     <TextView
@@ -13,7 +14,8 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:text="Name" />
+        android:text="Name"
+        android:textColor="@color/colorTextColor"/>
 
     <TextView
         android:id="@+id/textView10"
@@ -24,7 +26,9 @@
         android:layout_alignParentTop="true"
         android:layout_marginEnd="106dp"
         android:layout_marginRight="106dp"
-        android:text="TextView" />
+        android:text="TextView"
+        android:textColor="@color/colorTextColor"
+        />
 
     <TextView
         android:id="@+id/textView11"
@@ -34,7 +38,8 @@
         android:layout_alignParentStart="true"
         android:layout_below="@+id/textView9"
         android:layout_marginTop="52dp"
-        android:text="Email" />
+        android:text="Email"
+        android:textColor="@color/colorTextColor"/>
 
     <TextView
         android:id="@+id/textView12"
@@ -43,7 +48,8 @@
         android:layout_alignLeft="@+id/textView10"
         android:layout_alignStart="@+id/textView10"
         android:layout_alignTop="@+id/textView11"
-        android:text="TextView" />
+        android:text="TextView"
+        android:textColor="@color/colorTextColor"/>
 
     <TextView
         android:id="@+id/textView13"
@@ -56,7 +62,7 @@
         android:layout_toLeftOf="@+id/textView16"
         android:layout_toStartOf="@+id/textView16"
         android:text="Preferred First Name"
-        tools:text="Pref First Name" />
+        android:textColor="@color/colorTextColor" />
 
     <TextView
         android:id="@+id/textView14"
@@ -67,7 +73,8 @@
         android:layout_alignTop="@+id/textView13"
         android:layout_marginLeft="11dp"
         android:layout_marginStart="11dp"
-        android:text="TextView" />
+        android:text="TextView"
+        android:textColor="@color/colorTextColor"/>
 
     <TextView
         android:id="@+id/textView15"
@@ -78,6 +85,7 @@
         android:layout_below="@+id/textView13"
         android:layout_marginTop="54dp"
         android:text="Phone"
+        android:textColor="@color/colorTextColor"
         tools:text="Phone" />
 
     <TextView
@@ -89,5 +97,6 @@
         android:layout_alignRight="@+id/textView12"
         android:layout_marginEnd="24dp"
         android:layout_marginRight="24dp"
-        android:text="TextView" />
+        android:text="TextView"
+        android:textColor="@color/colorTextColor"/>
 </RelativeLayout>
