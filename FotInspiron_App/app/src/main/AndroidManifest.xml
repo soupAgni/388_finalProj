@@ -51,8 +51,10 @@
         <activity
             android:name=".UsersFeed"
             android:parentActivityName=".UserList"></activity>
-        <activity android:name=".ProfileActivity" />
-        <activity android:name=".UserProfile"></activity>
+        <activity android:name=".ProfileActivity"
+            android:parentActivityName=".UserList"/>
+        <activity android:name=".UserProfile"
+            android:parentActivityName=".UserList"></activity>
     </application>
 
 </manifest>

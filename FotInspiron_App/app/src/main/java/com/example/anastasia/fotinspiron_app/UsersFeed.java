@@ -33,8 +33,6 @@ import java.util.List;
 public class UsersFeed extends AppCompatActivity {
 
    String username = "";
-    LinearLayout ll;
-    GridLayout gl;
     int count = 0;
     ArrayList<Bitmap> bitmaps = new ArrayList<Bitmap>();
     GridView gv;
@@ -45,9 +43,7 @@ public class UsersFeed extends AppCompatActivity {
         setContentView(R.layout.activity_users_feed);
 
         gv = findViewById(R.id.gv);
-        //ll = findViewById(R.id.llayout);
-        /*gl = findViewById(R.id.gridLayout);
-        gl.removeAllViews();*/
+
         Intent i = getIntent();
         username = i.getStringExtra("username");
 
@@ -57,9 +53,6 @@ public class UsersFeed extends AppCompatActivity {
         ParseQuery<ParseObject> query = new ParseQuery<ParseObject>("Images");
         query.whereEqualTo("username", username);
         query.orderByDescending("createdAt");
-
-
-
 
         query.findInBackground(new FindCallback<ParseObject>() {
             @Override
@@ -80,21 +73,6 @@ public class UsersFeed extends AppCompatActivity {
                                             Bitmap image = BitmapFactory.decodeByteArray(data, 0, data.length);
                                             bitmaps.add(image);
 
-                                            //ImageView imageview = new ImageView(getApplicationContext());
-
-                                            //GridLayout.LayoutParams layoutParams = new GridLayout.LayoutParams();
-                                            //imageview.setImageBitmap(image);
-
-                                            /*imageview.setLayoutParams(new ViewGroup.LayoutParams(
-                                                    ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT
-                                            ));*/
-
-                                           /* layoutParams.width = gl.getMeasuredWidth();
-                                            layoutParams.height = gl.getMeasuredHeight();
-                                            imageview.setLayoutParams(layoutParams);*/
-                                            //ll.addView(imageview);
-
-                                            //gl.addView(imageview);
                                             gv.setAdapter(new ImageAdapterGridView(getApplicationContext()));
 
                                             count++;

@@ -1,5 +1,6 @@
 package com.example.anastasia.fotinspiron_app;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -29,6 +30,11 @@ public class UserProfile extends AppCompatActivity {
         textView2 = (TextView) findViewById(R.id.textView12);
         textView3 = (TextView) findViewById(R.id.textView14);
         textView4 = (TextView) findViewById(R.id.textView16);
+
+        Intent i = getIntent();
+        String name = i.getStringExtra("username");
+        setTitle(name + "'s Profile");
+
         Bundle b = getIntent().getExtras();
         if (b != null) {
             String username = b.getString("username", "");
