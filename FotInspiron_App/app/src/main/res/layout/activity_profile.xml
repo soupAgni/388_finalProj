@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center"
+    android:background="@color/colorBackground"
     tools:context="com.example.anastasia.fotinspiron_app.ProfileActivity">
 
     <TextView
@@ -16,6 +17,7 @@
         android:layout_alignEnd="@+id/textView7"
         android:layout_alignRight="@+id/textView7"
         android:text="Username"
+        android:textColor="@color/colorTextColor"
         android:textAppearance="@style/TextAppearance.AppCompat.Body2"
         tools:layout_editor_absoluteX="16dp"
         tools:layout_editor_absoluteY="57dp" />
@@ -24,6 +26,7 @@
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="@color/colorTextColor"
         android:layout_alignLeft="@+id/textView5"
         android:layout_alignParentTop="true"
         android:layout_alignStart="@+id/textView5"
@@ -35,6 +38,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignEnd="@+id/textView"
+        android:textColor="@color/colorTextColor"
         android:layout_alignRight="@+id/textView"
         android:layout_below="@+id/textView3"
         android:text="Email"
@@ -45,6 +49,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/textView3"
+        android:textColor="@color/colorTextColor"
         android:layout_marginLeft="28dp"
         android:layout_marginStart="28dp"
         android:layout_toEndOf="@+id/textView4"
@@ -54,6 +59,8 @@
 
     <Button
         android:id="@+id/button2"
+        android:background="@color/colorButtoncolor"
+        android:textColor="@color/colorTextColor"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
@@ -63,6 +70,7 @@
     <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
+        android:textColor="@color/colorTextColor"
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/textView6"
         android:layout_alignBottom="@+id/textView6"
@@ -74,6 +82,7 @@
     <EditText
         android:id="@+id/textView6"
         android:layout_width="wrap_content"
+        android:textColor="@color/colorTextColor"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/textView5"
         android:layout_alignStart="@+id/textView5"
@@ -84,6 +93,7 @@
         android:id="@+id/textView7"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="@color/colorTextColor"
         android:layout_alignBaseline="@+id/textView8"
         android:layout_alignBottom="@+id/textView8"
         android:layout_alignParentLeft="true"
@@ -97,6 +107,7 @@
         android:id="@+id/textView8"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="@color/colorTextColor"
         android:layout_alignLeft="@+id/textView6"
         android:layout_alignStart="@+id/textView6"
         android:layout_below="@+id/textView6"
