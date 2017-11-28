@@ -179,7 +179,7 @@ public class UserList extends AppCompatActivity implements SearchView.OnQueryTex
                 System.out.println(byteArray.length);
                 //convert to parse file before passing into parse
                 ParseFile file = new ParseFile("image.png", byteArray);
-                ParseObject object = new ParseObject("Images");
+                final ParseObject object = new ParseObject("Images");
                 file.saveInBackground(new SaveCallback() {
                     @Override
                     public void done(ParseException e) {
@@ -210,8 +210,12 @@ public class UserList extends AppCompatActivity implements SearchView.OnQueryTex
                         if(e == null){
 
                             Intent i = new Intent(getApplicationContext(), updateDescription.class);
-                            startActivity(i);
+
+
                             String text = "Your image has been posted!";
+                            String id = object.getObjectId();
+                            i.putExtra("id", id);
+                            startActivity(i);
                             NotifyUser(text);
                         }
                         else{
