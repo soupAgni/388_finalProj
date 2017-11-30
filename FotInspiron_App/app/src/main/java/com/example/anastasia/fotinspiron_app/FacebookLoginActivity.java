@@ -377,27 +377,7 @@ public class FacebookLoginActivity extends AppCompatActivity implements View.OnC
     public void onClick(View view) {
 
         Log.i("InsideOnClick","View id: " +view.getId());
-        /*if(tv_signup_or_login.getText().equals("Sign Up")){
-            Log.i("OnClickTV", "In if");
-            btn_signup_or_login.setText("Sign Up!");
-            et_password_verify.setVisibility(View.VISIBLE);
-            tv_verifyPass.setVisibility(View.VISIBLE);
 
-            *//*SpannableString content = new SpannableString("Log In");
-            content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
-            text = content.toString();*//*
-            tv_signup_or_login.setText("Log In");
-        }
-        else if(tv_signup_or_login.getText().equals("Log In")){
-            Log.i("OnClickTV", "In else");
-            btn_signup_or_login.setText("Log In");
-            et_password_verify.setVisibility(View.INVISIBLE);
-            tv_verifyPass.setVisibility(View.INVISIBLE);
-            *//*SpannableString content = new SpannableString("Sign Up");
-            content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
-            text = content.toString();*//*
-            tv_signup_or_login.setText("Sign Up");
-        }*/
        if(view.getId() == R.id.iv_icon || view.getId() == R.id.rl){
             Log.i("InsideOnClick","View id: " +view.getId() + "RLId: " +R.id.rl);
             //KeyboardUtils.
@@ -410,77 +390,8 @@ public class FacebookLoginActivity extends AppCompatActivity implements View.OnC
            },50);
 
         }
-      /*else if(view.getId() == R.id.iv_icon || view.getId() == R.id.rl){
 
-
-            InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
-            imm.hideSoftInputFromInputMethod(getCurrentFocus().getWindowToken(),0);
-
-        }*/
     }
 }
 
 
-/* All the parse tests: Put in onCreate and see what each one does. This is a means to communicate with the parse dashboard.
-
-    //checks to see if the Score class exists and puts score in that class or it will create a new Score
-      /*ParseObject gameScore = new ParseObject("GameScore");
-      gameScore.put("score", 2000);
-      gameScore.put("playerName", "new user 3");
-      gameScore.put("cheatMode", false);
-      gameScore.saveInBackground(new SaveCallback() {
-          public void done(ParseException e) {
-              if (e == null) {
-                  Log.i("Parse", "Save Succeeded");
-              } else {
-                  Log.i("Parse", "Save Failed");
-              }
-          }
-      });*/
-/*
-      ParseQuery<ParseObject> query = ParseQuery.getQuery("GameScore");
-      query.getInBackground("ruyGoU6vXD", new GetCallback<ParseObject>() {
-          @Override
-          public void done(ParseObject object, ParseException e) {
-              if(e == null){
-                  object.put("playerName", "This is cool");
-                  object.saveInBackground();
-                  Log.i("Parse", "Save Succeeded");
-              }
-              else{
-                  Log.i("Parse", "Save Failed");
-              }
-          }
-      });*/
-
-    /* ParseQuery<ParseObject> query = ParseQuery.getQuery("GameScore");
-      query.whereEqualTo("playerName", "Souparni Agnihotri");
-      query.findInBackground(new FindCallback<ParseObject>() {
-          @Override
-          public void done(List<ParseObject> objects, ParseException e) {
-              if(e == null){
-                  Log.i("findInBg", "Retrieved" + objects.size() + " results");
-
-                  for(ParseObject object : objects){
-                      Log.i("FindInBg", String.valueOf(object.get("score")));
-                  }
-              }
-          }
-      });*/
-
-      /*ParseQuery<ParseObject> query = ParseQuery.getQuery("GameScore");
-      query.whereEqualTo("playerName", "Souparni Agnihotri");
-      query.findInBackground(new FindCallback<ParseObject>() {
-          @Override
-          public void done(List<ParseObject> objects, ParseException e) {
-              if(e == null){
-                  for(ParseObject object: objects){
-                      Object id = object.get("objectId");
-                      object.put("score", 190);
-                      object.saveInBackground();
-                      Log.i("findInBg", "Saved");
-
-                  }
-              }
-          }
-      });*/

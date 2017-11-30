@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -36,6 +38,7 @@ public class UsersFeed extends AppCompatActivity {
     int count = 0;
     ArrayList<Bitmap> bitmaps = new ArrayList<Bitmap>();
     GridView gv;
+    private CoordinatorLayout coordinatorLayout;
     ArrayList<String> descs = new ArrayList<String>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +47,7 @@ public class UsersFeed extends AppCompatActivity {
         setContentView(R.layout.activity_users_feed);
 
         gv = findViewById(R.id.gv);
+        coordinatorLayout =      (CoordinatorLayout) findViewById(R.id.coordinatorLayout);
 
         Intent i = getIntent();
         username = i.getStringExtra("username");
@@ -101,7 +105,8 @@ public class UsersFeed extends AppCompatActivity {
                                     View v, int position, long id)
             {
                 //replace with snackbar or anything else
-                Toast.makeText(getApplicationContext(), descs.get(position), Toast.LENGTH_LONG).show();
+                Snackbar.make(coordinatorLayout,descs.get(position),Snackbar.LENGTH_LONG).show();
+
 
             }
         });

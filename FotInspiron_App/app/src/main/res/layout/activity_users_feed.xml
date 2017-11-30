@@ -10,14 +10,14 @@
     <LinearLayout
         android:id="@+id/llayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:gravity="center"
         android:orientation="vertical">
 
         <GridView
             android:id="@+id/gv"
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
+            android:layout_height="wrap_content"
             android:columnWidth="90dp"
             android:gravity="center"
             android:horizontalSpacing="10dp"
@@ -25,5 +25,11 @@
             android:stretchMode="columnWidth"
             android:verticalSpacing="10dp" />
     </LinearLayout>
+    <android.support.design.widget.CoordinatorLayout
+        android:id="@+id/coordinatorLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </android.support.design.widget.CoordinatorLayout>
 
 </android.support.constraint.ConstraintLayout>
