@@ -38,7 +38,8 @@ import java.io.IOException;
 public class updateDescription extends AppCompatActivity {
 
     EditText descripton;
-    Button done; String id;
+    Button done;
+    //String id;
     private static final String CHANNEL_ID = "media_playback_channel";
 
 
@@ -54,13 +55,13 @@ public class updateDescription extends AppCompatActivity {
         descripton = findViewById(R.id.et_description);
         done = findViewById(R.id.btn_done);
 
-        id = getIntent().getStringExtra("id");
+        //id = getIntent().getStringExtra("id");
 
-        done.setOnClickListener(new View.OnClickListener() {
+      /*  done.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                /*Intent i = new Intent(updateDescription.this, UserList.class);
-                startActivity(i);*/
+                *//*Intent i = new Intent(updateDescription.this, UserList.class);
+                startActivity(i);*//*
                 ParseQuery<ParseObject> query = ParseQuery.getQuery("Images");
                 //query.whereEqualTo("objectID", id);
                 query.getInBackground(id, new GetCallback<ParseObject>() {
@@ -77,7 +78,7 @@ public class updateDescription extends AppCompatActivity {
                             Log.i("DescriptionUpdate", "Failed");
                         }
                     }
-                });
+                });*/
 
                 /*ParseObject object = new ParseObject("Images");
                 object.put("description", descripton.getText().toString());
@@ -98,8 +99,8 @@ public class updateDescription extends AppCompatActivity {
                         }
                     }
                 });*/
-            }
-        });
+          //  }
+       // });
     }
 
     @Override
@@ -109,11 +110,77 @@ public class updateDescription extends AppCompatActivity {
         if (requestCode == 1 && resultCode == RESULT_OK && data != null) {
             Uri selectedImage = data.getData();
             try {
-                Bitmap bitmapImage = MediaStore.Images.Media.getBitmap(this.getContentResolver(), selectedImage);
+                final Bitmap bitmapImage = MediaStore.Images.Media.getBitmap(this.getContentResolver(), selectedImage);
 
                 ImageView imageView = findViewById(R.id.iv_uploadedImage);
                 imageView.setImageBitmap(bitmapImage);
 
+                done.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Log.i("AppInfo", "ImageRecieved");
+
+                        //in order to pass it into parse
+                        //(like the stream we get in the web when we download it)
+                        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+
+                        //do not compress for now
+                        bitmapImage.compress(Bitmap.CompressFormat.PNG, 100, stream);
+                        //store the image as a byte array
+                        byte[] byteArray = stream.toByteArray();
+                        System.out.println(byteArray.length);
+                        //convert to parse file before passing into parse
+                        ParseFile file = new ParseFile("image.png", byteArray);
+                        final ParseObject object = new ParseObject("Images");
+                        file.saveInBackground(new SaveCallback() {
+                            @Override
+                            public void done(ParseException e) {
+                                if (e == null) {
+                                    System.out.println("Done");
+                                } else {
+                                    e.printStackTrace();
+                                }
+                            }
+                        }, new ProgressCallback() {
+                            @Override
+                            public void done(Integer percentDone) {
+                                System.out.println(percentDone);
+                            }
+                        });
+
+
+                        object.put("username", ParseUser.getCurrentUser().getUsername());
+                        object.put("images", file);
+                        object.put("description", descripton.getText().toString());
+
+                        ParseACL parseACL = new ParseACL();
+                        parseACL.setPublicReadAccess(true);
+
+                        object.setACL(parseACL);
+                        object.saveInBackground(new SaveCallback() {
+                            @Override
+                            public void done(ParseException e) {
+                                if(e == null){
+
+                                    //Intent i = new Intent(getApplicationContext(), updateDescription.class);
+                                    String text = "Your image has been posted!";
+                                    //id = object.getObjectId();
+                                    //i.putExtra("id", id);
+                                    //startActivity(i);
+
+                                    NotifyUser(text);
+                                    //picUpdateStatus = true;
+                                }
+                                else{
+                                    String text = "Could not save";
+                                    NotifyUser(text);
+                                    //picUpdateStatus = false;
+                                    //e.printStackTrace();
+                                }
+                            }
+                        });
+                    }
+                });
                 /*Log.i("AppInfo", "ImageRecieved");
 
                 //in order to pass it into parse
