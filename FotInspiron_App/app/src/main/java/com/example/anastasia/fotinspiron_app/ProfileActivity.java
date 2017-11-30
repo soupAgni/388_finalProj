@@ -12,6 +12,7 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -48,6 +49,8 @@ public class ProfileActivity extends AppCompatActivity {
  LinearLayout ll_forGrid;
  GridView gridView;
  ArrayList<Bitmap> bitmaps = new ArrayList<Bitmap>();
+ ArrayList<String> descs = new ArrayList<String>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -154,6 +157,7 @@ public class ProfileActivity extends AppCompatActivity {
 
                         for (ParseObject object : objects) {
 
+                            descs.add(object.get("description").toString());
                             //pointer to the file
                             ParseFile file = (ParseFile) object.get("images");
                             if (file != null) {
@@ -181,6 +185,20 @@ public class ProfileActivity extends AppCompatActivity {
                 }
             }
         });
+
+        //if we want to display something when the user clicks on an image
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener()
+        {
+            public void onItemClick(AdapterView<?> parent,
+                                    View v, int position, long id)
+            {
+
+                //replace with snackbar or anything else
+                Toast.makeText(getApplicationContext(), descs.get(position), Toast.LENGTH_LONG).show();
+
+            }
+        });
+
     }
 
     public class ImageAdapterGridView extends BaseAdapter {

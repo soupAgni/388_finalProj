@@ -36,6 +36,7 @@ public class UsersFeed extends AppCompatActivity {
     int count = 0;
     ArrayList<Bitmap> bitmaps = new ArrayList<Bitmap>();
     GridView gv;
+    ArrayList<String> descs = new ArrayList<String>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -62,6 +63,8 @@ public class UsersFeed extends AppCompatActivity {
 
                         for(ParseObject object : objects) {
 
+                            Log.i("Adding descriptions", object.get("description").toString());
+                            descs.add(object.get("description").toString());
                             //pointer to the file
                             ParseFile file = (ParseFile) object.get("images");
                             if (file != null) {
@@ -92,27 +95,16 @@ public class UsersFeed extends AppCompatActivity {
         });
 
         //if we want to display something when the user clicks on an image
-       /* gv.setOnItemClickListener(new AdapterView.OnItemClickListener()
+       gv.setOnItemClickListener(new AdapterView.OnItemClickListener()
         {
             public void onItemClick(AdapterView<?> parent,
                                     View v, int position, long id)
             {
-                ParseQuery<ParseObject> query = ParseQuery.getQuery("Images");
-                query.whereEqualTo("username", username);
-                query.findInBackground(new FindCallback<ParseObject>() {
-                    @Override
-                    public void done(List<ParseObject> objects, ParseException e) {
-                        if(e == null){
-                            Log.i("findInBg", "Retrieved" + objects.size() + " results");
+                //replace with snackbar or anything else
+                Toast.makeText(getApplicationContext(), descs.get(position), Toast.LENGTH_LONG).show();
 
-                            for(ParseObject object : objects){
-                                Log.i("FindInBg", String.valueOf(object.get("score")));
-                            }
-                        }
-                    }
-                });
             }
-        });*/
+        });
 
     }
     @Override
