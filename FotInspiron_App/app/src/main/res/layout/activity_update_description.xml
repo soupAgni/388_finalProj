@@ -10,9 +10,10 @@
         android:id="@+id/tv_description"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="14dp"
+        android:layout_above="@+id/et_description"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="15dp"
         android:text="Tell us a little about this picture.."
         android:textAppearance="@style/TextAppearance.AppCompat.Display1" />
 
@@ -20,12 +21,10 @@
         android:id="@+id/et_description"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/tv_description"
-        android:layout_marginLeft="12dp"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="19dp"
+        android:layout_above="@+id/btn_done"
+        android:layout_alignEnd="@+id/btn_done"
+        android:layout_alignRight="@+id/btn_done"
+        android:layout_marginBottom="18dp"
         android:ems="10"
         android:hint="Enter description"
         android:inputType="textPersonName" />
@@ -34,8 +33,21 @@
         android:id="@+id/btn_done"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/et_description"
-        android:layout_alignRight="@+id/et_description"
-        android:layout_centerVertical="true"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="19dp"
+        android:layout_marginEnd="138dp"
+        android:layout_marginRight="138dp"
         android:text="done" />
+
+    <ImageView
+        android:id="@+id/iv_uploadedImage"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_above="@+id/tv_description"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginEnd="27dp"
+        android:layout_marginRight="27dp" />
 </RelativeLayout>

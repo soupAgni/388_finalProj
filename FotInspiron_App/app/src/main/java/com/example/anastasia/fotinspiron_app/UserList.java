@@ -98,6 +98,13 @@ public class UserList extends AppCompatActivity implements SearchView.OnQueryTex
         });
         userList.setTextFilterEnabled(true);
         setupSearchView();
+
+        if (picUpdateStatus){
+            Log.i("picUpdateStatus", "starting description activity");
+            Intent i = new Intent(getApplicationContext(), updateDescription.class);
+            i.putExtra("id", id);
+            startActivity(i);
+        }
     }
     private void setupSearchView(){
         searchview.setIconifiedByDefault(false);
@@ -135,8 +142,11 @@ public class UserList extends AppCompatActivity implements SearchView.OnQueryTex
         if(id == R.id.share){
 
             //to get image change intent of the app so that it can be accessed through another activity
-            Intent i = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-            startActivityForResult(i, 1);
+            /*Intent i = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+            startActivityForResult(i, 1);*/
+
+            Intent i = new Intent(this, updateDescription.class);
+            startActivity(i);
 
         }
         if(id == R.id.logout){
@@ -160,7 +170,7 @@ public class UserList extends AppCompatActivity implements SearchView.OnQueryTex
     }
 
     //getting the image from the external activity
-    @Override
+    /*@Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
@@ -168,6 +178,9 @@ public class UserList extends AppCompatActivity implements SearchView.OnQueryTex
             Uri selectedImage = data.getData();
             try {
                 Bitmap bitmapImage = MediaStore.Images.Media.getBitmap(this.getContentResolver(), selectedImage);
+
+
+
 
                 Log.i("AppInfo", "ImageRecieved");
 
@@ -228,35 +241,30 @@ public class UserList extends AppCompatActivity implements SearchView.OnQueryTex
                         }
                     }
                 });
-                if (picUpdateStatus){
-                    Log.i("picUpdateStatus", "starting description activity");
-                    Intent i = new Intent(getApplicationContext(), updateDescription.class);
-                    i.putExtra("id", id);
-                    startActivity(i);
-                }
+
 
             } catch (IOException e) {
                 e.printStackTrace();
                 Toast.makeText(getApplication().getBaseContext(), "Error Before save in Bg", Toast.LENGTH_LONG).show();
 
             }
-/*
+*//*
             if (picUpdateStatus){
                 Log.i("picUpdateStatus", "starting description activity");
                 Intent i = new Intent(getApplicationContext(), updateDescription.class);
                 i.putExtra("id", id);
                 startActivity(i);
-            }*/
+            }*//*
 
         }
         //Log.i("picUpdateStatus", picUpdateStatus.toString());
 
-        /*if (picUpdateStatus){
+        *//*if (picUpdateStatus){
             Log.i("picUpdateStatus", "starting description activity");
             Intent i = new Intent(getApplicationContext(), updateDescription.class);
             i.putExtra("id", id);
             startActivity(i);
-        }*/
+        }*//*
     }
     private void NotifyUser(String text){
         PendingIntent pendingIntent = PendingIntent.getActivity(getApplicationContext(), 0, new Intent(), PendingIntent.FLAG_UPDATE_CURRENT);
@@ -272,11 +280,6 @@ public class UserList extends AppCompatActivity implements SearchView.OnQueryTex
         Notification notification = mBuilder.build();
         NotificationManager notificationManager  = (NotificationManager)getApplicationContext().getSystemService(NOTIFICATION_SERVICE);
         notificationManager.notify(0,notification);
-
-
-
-
-
 
 
     }
@@ -298,6 +301,6 @@ public class UserList extends AppCompatActivity implements SearchView.OnQueryTex
         mChannel.setShowBadge(false);
         mChannel.setLockscreenVisibility(Notification.VISIBILITY_PUBLIC);
         mNotificationManager.createNotificationChannel(mChannel);
-    }
+    }*/
 
 }
