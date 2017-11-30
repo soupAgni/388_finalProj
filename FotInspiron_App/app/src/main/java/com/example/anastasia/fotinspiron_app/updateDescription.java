@@ -36,7 +36,7 @@ public class updateDescription extends AppCompatActivity {
                 /*Intent i = new Intent(updateDescription.this, UserList.class);
                 startActivity(i);*/
                 ParseQuery<ParseObject> query = ParseQuery.getQuery("Images");
-                query.whereEqualTo("objectID", id);
+                //query.whereEqualTo("objectID", id);
                 query.getInBackground(id, new GetCallback<ParseObject>() {
                     @Override
                     public void done(ParseObject object, ParseException e) {

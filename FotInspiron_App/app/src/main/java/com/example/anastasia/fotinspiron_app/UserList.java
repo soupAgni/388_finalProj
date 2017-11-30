@@ -6,6 +6,7 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SyncStatusObserver;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.net.Uri;
@@ -51,6 +52,8 @@ public class UserList extends AppCompatActivity implements SearchView.OnQueryTex
     SearchView searchview;
     private static final String CHANNEL_ID = "media_playback_channel";
      ListView userList;
+     Boolean picUpdateStatus = false;
+    String id;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -209,28 +212,51 @@ public class UserList extends AppCompatActivity implements SearchView.OnQueryTex
                     public void done(ParseException e) {
                         if(e == null){
 
-                            Intent i = new Intent(getApplicationContext(), updateDescription.class);
+                            //Intent i = new Intent(getApplicationContext(), updateDescription.class);
                             String text = "Your image has been posted!";
-                            String id = object.getObjectId();
-                            i.putExtra("id", id);
-                            startActivity(i);
+                            id = object.getObjectId();
+                            //i.putExtra("id", id);
+                            //startActivity(i);
                             NotifyUser(text);
+                            picUpdateStatus = true;
                         }
                         else{
                             String text = "Could not save";
                             NotifyUser(text);
+                            picUpdateStatus = false;
                             //e.printStackTrace();
                         }
                     }
                 });
+                if (picUpdateStatus){
+                    Log.i("picUpdateStatus", "starting description activity");
+                    Intent i = new Intent(getApplicationContext(), updateDescription.class);
+                    i.putExtra("id", id);
+                    startActivity(i);
+                }
 
             } catch (IOException e) {
                 e.printStackTrace();
                 Toast.makeText(getApplication().getBaseContext(), "Error Before save in Bg", Toast.LENGTH_LONG).show();
 
             }
+/*
+            if (picUpdateStatus){
+                Log.i("picUpdateStatus", "starting description activity");
+                Intent i = new Intent(getApplicationContext(), updateDescription.class);
+                i.putExtra("id", id);
+                startActivity(i);
+            }*/
 
         }
+        //Log.i("picUpdateStatus", picUpdateStatus.toString());
+
+        /*if (picUpdateStatus){
+            Log.i("picUpdateStatus", "starting description activity");
+            Intent i = new Intent(getApplicationContext(), updateDescription.class);
+            i.putExtra("id", id);
+            startActivity(i);
+        }*/
     }
     private void NotifyUser(String text){
         PendingIntent pendingIntent = PendingIntent.getActivity(getApplicationContext(), 0, new Intent(), PendingIntent.FLAG_UPDATE_CURRENT);
